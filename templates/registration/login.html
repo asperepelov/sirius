@@ -1,15 +1,19 @@
 {% extends "base_generic.html" %}
 {% load i18n %}
+{% get_current_language as LANGUAGE_CODE %}
 {% block content %}
 
 {% if form.errors %}
-<p>Your username and password didn't match. Please try again.</p>
+    {% for key, value in form.errors.items %}
+<p>
+    {% if key != '__all__' %}{{ key }} {% endif %}{{ value }}
+</p>
+    {% endfor %}
 {% endif %}
 
 {% if next %}
     {% if user.is_authenticated %}
-    <p>Your account doesn't have access to this page. To proceed,
-    please login with an account that has access.</p>
+    <p>{% trans "Your account doesn't have access to this page. To proceed, please login with an account that has access" %}</p>
     {% endif %}
 {% endif %}
 
@@ -19,7 +23,7 @@
                 <div class="panel panel-primary">
                     <div class="panel-heading">
                         <h3 class="panel-title">
-                            Авторизация на сайте</h3>
+                            {% trans "Authorization" %}</h3>
                     </div>
                     <form role="form" method="post" action="{% url 'login' %}">
                         {% csrf_token %}
@@ -28,11 +32,11 @@
                                 <div class="col-xs-12 col-sm-12 col-md-6 login-box">
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-user"></span></span>
-                                        <input type="text" name="username" id="id_username" class="form-control" placeholder="Имя пользователя" required autofocus />
+                                        <input type="text" name="username" id="id_username" class="form-control" placeholder="{% trans "username" %}" required autofocus />
                                     </div>
                                     <div class="input-group">
                                         <span class="input-group-addon"><span class="glyphicon glyphicon-lock"></span></span>
-                                        <input type="password" name="password" class="form-control" id="id_password" placeholder="Ваш пароль" required>
+                                        <input type="password" name="password" class="form-control" id="id_password" placeholder="{% trans "Password" %}" required>
                                     </div>
                                     <p><a href="{% url 'password_reset' %}">{% trans "Lost password?" %}</a>
                                 </div>
@@ -44,7 +48,7 @@
                                     <div class="checkbox">
                                         <label>
                                             <input type="checkbox" value="Remember">
-                                            Запомнить меня
+                                            {% trans "Remember me" %}
                                         </label>
                                     </div>
                                 </div>
