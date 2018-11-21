@@ -128,3 +128,5 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 AUTHENTICATION_BACKENDS = [
     'SiriusCRM.auth.DualModelBackend.DualModelBackend'
 ]
+LOCALE_PATHS = (
+    BASE_DIR + 'SiriusCRM/locale', )
