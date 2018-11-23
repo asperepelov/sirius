@@ -16,11 +16,13 @@ class Country(models.Model):
 
 class Region(models.Model):
     id = models.AutoField(primary_key=True)
+    country = models.ForeignKey(Country, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
 
 
 class City(models.Model):
     id = models.AutoField(primary_key=True)
+    region = models.ForeignKey(Region, null=True, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=False, blank=False)
 
 
